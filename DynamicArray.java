@@ -45,7 +45,7 @@ public class DynamicArray<T> implements ListADT<T> {
             throw new IndexOutOfBoundsException();
         } else {
             if (size == this.data.length) {
-                T[] dataCopy = this.makeArray(size*2);
+                T[] dataCopy = this.makeArray(size*2+1);
                 for (int i=0;i<size;i++) {
                     dataCopy[i] = this.data[i];
                 }
