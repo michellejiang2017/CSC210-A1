@@ -28,4 +28,4 @@ remove and add because because inserting or removing an element in the middle of
 ## Reflection 
 
 Please provide a brief reflection about your experience with this assignment. What was easiest? What was hardest? How did your understanding of arrays and lists evolve?
-I wrote 99% of this in one night even after submitting an extension so I will not do that again hopefully. 
+I wrote 99% of this in one night even after submitting an extension so I will not do that again hopefully. The easiest part was honestly writing out the methods and tests once I understood the assignment. The hardest part was getting started esp with the constructor and the attributes--for some reason I was just really confused. My understanding of adding to and removing from arrays changed as I now understand what we covered in Thursday's class with the steps to adding and removing lists. 

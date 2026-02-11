@@ -10,11 +10,11 @@ your work, please indicate the status of each item
 ## Grade-ability Check
 Please confirm the following minimum criteria are met:
 
-_____ Program compiles without errors 
+___Y__ Program compiles without errors 
 
-_____ All required files included with submission (including basic readme info and completed checklist file) 
+__Y___ All required files included with submission (including basic readme info and completed checklist file) 
 
-_____ README.md contains answers to any questions and your reflection on the assignment 
+___Y__ README.md contains answers to any questions and your reflection on the assignment 
 
 **Assignments that do not meet the above criteria cannot be graded**
 
@@ -50,7 +50,7 @@ ___Y__ 1 pt: Resize correctly allocates a new array and copies existing elements
 
 __Y__ 1 pt: No copy/paste near-duplicate code blocks for the same behavior (reusing your code is better for everyone!)
 
-_____ 1 pt: Common logic is factored into helpers (e.g., checkIndex, resizeIfNeeded, shiftLeft/Right)
+___Y__ 1 pt: Common logic is factored into helpers (e.g., checkIndex, resizeIfNeeded, shiftLeft/Right)
 
 ___Y__ 1 pt: Methods are short enough to read (no 100-line monster methods unless justified)
 
@@ -59,10 +59,10 @@ ___Y__ 1 pt: Names communicate intent (especially for helper methods)
 
 ## General Items (6 pts):
 
-_____ 1 pt: Student-written code compiles without warnings that indicate correctness problems
+___Y__ 1 pt: Student-written code compiles without warnings that indicate correctness problems
 
-_____ 2 pts: Student-provided code runs and executes without unexpected crashing
+____Y_ 2 pts: Student-provided code runs and executes without unexpected crashing
 
-_____ 2 pt: Javadoc builds without errors/warnings
+___Y__ 2 pt: Javadoc builds without errors/warnings
 
-_____ 1 pt: Indentation and other style norms are followed
+___Y__ 1 pt: Indentation and other style norms are followed
