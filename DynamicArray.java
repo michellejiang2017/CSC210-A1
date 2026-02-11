@@ -4,7 +4,7 @@
  * @param <T> The generic class T can hold any object type such as Integer, String, etc. 
  * @author Michelle Jiang
  */
-public class DynamicArray<T> {
+public class DynamicArray<T> implements ListADT<T> {
     T[] data; 
     int size; 
 
@@ -28,13 +28,10 @@ public class DynamicArray<T> {
      * @throws IndexOutOfBoundsException if the index is less than 0 or greater than or equal to the size of the list
      */
     public T set(int index, T value) {
-        if (index < 0 || index >= this.size()) {
-            throw new IndexOutOfBoundsException();
-        } else {
-            T returnValue = this.data[index];
-            this.data[index] = value; 
-            return returnValue;
-        }
+        checkIndex(index);
+        T returnValue = this.data[index];
+        this.data[index] = value; 
+        return returnValue;
     }
 
     /**
@@ -66,7 +63,7 @@ public class DynamicArray<T> {
      * Adds element at end of list. 
      * @param value the element to be added to the ListADT object
      */
-    public void append(T value) { 
+    public void add(T value) { 
         this.add(size, value);
     }
 
@@ -109,12 +106,8 @@ public class DynamicArray<T> {
      * @return value at specified index
      */
     public T get(int index) {
-        if (index < 0 || index > this.size()) { 
-            throw new IndexOutOfBoundsException();
-        }
-        else { 
-            return this.data[index];
-        }
+        checkIndex(index);
+        return this.data[index];
     }
 
     /**
@@ -124,16 +117,68 @@ public class DynamicArray<T> {
      * @return the element at the index specified
      */
     public T remove(int index) {
-        if (index < 0 || index >= this.size()) { 
-            throw new IndexOutOfBoundsException();
-        } else {
-            T returnValue = this.data[index];
-            this.data[index] = null;
-            for (int i=index+1; i<size; i++) {
-                this.data[i-1] = this.data[i];
+        checkIndex(index);
+        T returnValue = this.data[index];
+        this.data[index] = null;
+        for (int i=index+1; i<size; i++) {
+            this.data[i-1] = this.data[i];
+        }
+        size -= 1; 
+        return returnValue;
+    }
+
+    /**
+     * Appends the elements of the given array to the end of this array, and returns a new DynamicArray containing the result.
+     * @param addArray the array to be appended to this array
+     * @return a new DynamicArray containing the elements of this array followed by the elements of addArray
+     */
+    public DynamicArray<T> append(DynamicArray<T> addArray) {
+        DynamicArray<T> newArray = new DynamicArray<T>(addArray.size+this.size());
+        for (int i=0;i<this.size();i++) {
+            newArray.data[i] = this.data[i];
+        }
+        for (int i=0; i<addArray.size; i++) {
+            newArray.data[this.size()+i] = addArray.data[i];
+        }
+        newArray.size = this.size + addArray.size;
+        return newArray;
+    }
+
+    /**
+     * Adds the elements of the given array to the index of this array, and returns a new DynamicArray containing the result.
+     * @param index the index at which to insert the elements of addArray
+     * @param addArray the array to be added to the end of this array
+     * @return a new DynamicArray containing the elements of this array with the elements of addArray inserted at the specified index
+     */
+    public DynamicArray<T> addAll(int index, DynamicArray<T> addArray) {
+        if (index < 0 || index > this.size) {
+        throw new IndexOutOfBoundsException();
+        }
+        DynamicArray<T> newArray = new DynamicArray<T>(addArray.size+this.size());
+ 
+        for (int i=0;i<index;i++) {
+            newArray.data[i] = this.data[i];
+        }
+    
+        for (int i=0; i<addArray.size; i++) {
+                newArray.data[i+index] = addArray.data[i];
             }
-            size -= 1; 
-            return returnValue;
+        
+        for (int i=index; i<this.size(); i++) {
+            newArray.data[i+addArray.size] = this.data[i];
+        }
+
+        newArray.size = this.size + addArray.size;
+        return newArray;
+    }
+
+    /**
+     * Checks if the given index is valid for accessing or modifying the list. If the index is out of bounds, an IndexOutOfBoundsException is thrown.
+     * @param index the index to check
+     */
+    private void checkIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
         }
     }
 
