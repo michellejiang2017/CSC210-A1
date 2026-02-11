@@ -246,6 +246,22 @@ public class DynamicArrayTest {
         }
     }
 
+    /**
+     * Tests that the DynamicArray resizes correctly when adding elements beyond its initial capacity.
+     */
+    @Test
+    public void testResize() {
+        DynamicArray<Integer> arr = new DynamicArray<>(2);
+        arr.add(1);
+        arr.add(2);
+        arr.add(3); // triggers resize
+        assertEquals(3, arr.size());
+        assertEquals(Integer.valueOf(1), arr.get(0));
+        assertEquals(Integer.valueOf(2), arr.get(1));
+        assertEquals(Integer.valueOf(3), arr.get(2));
+    }
+
+
     // ~*~*~*~*~ Append Tests Below ~*~*~*~*~
 
     /**
@@ -309,9 +325,11 @@ public class DynamicArrayTest {
     public void testAddAllInvalidIndex() {
         assertThrows(IndexOutOfBoundsException.class, () -> {
             a1.addAll(-1, a2);
-    });
-
-}
+        });
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+        a1.addAll(a1.size() + 1, a2);
+        });
+    }
 }
 
 
