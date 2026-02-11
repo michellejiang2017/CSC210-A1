@@ -1,7 +1,7 @@
 /**
- * TODO: Describe what this class represents and how it works at a high level
+ * A Dynamic Array is like a list that is backed by an array. It allows adding, removing, and accessing elements in a way similar to an ArrayList.
  *
- * @param <T> TODO: Describe what type of elements this class can store
+ * @param <T> The generic class T can hold any object type such as Integer, String, etc. 
  * @author Michelle Jiang
  */
 public class DynamicArray<T> {
@@ -111,6 +111,7 @@ public class DynamicArray<T> {
     public T get(int index) {
         if (index < 0 || index > this.size()) { 
             throw new IndexOutOfBoundsException();
+        }
         else { 
             return this.data[index];
         }
