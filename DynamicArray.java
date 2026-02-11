@@ -28,7 +28,7 @@ public class DynamicArray<T> {
      * @throws IndexOutOfBoundsException if the index is less than 0 or greater than or equal to the size of the list
      */
     public T set(int index, T value) {
-        if (index < 0 || index >= size) {
+        if (index < 0 || index >= this.size()) {
             throw new IndexOutOfBoundsException();
         } else {
             T returnValue = this.data[index];
@@ -44,7 +44,30 @@ public class DynamicArray<T> {
      * @throws IndexOutOfBoundsException if the index is less than 0 or greater than or equal to the size of the list
      */
     public void add(int index, T value) {
+        if (index < 0 || index > this.size()) { 
+            throw new IndexOutOfBoundsException();
+        } else {
+            if (size == this.data.length) {
+                T[] dataCopy = this.makeArray(size*2);
+                for (int i=0;i<size;i++) {
+                    dataCopy[i] = this.data[i];
+                }
+                data = dataCopy;
+            }
+            for (int i=this.size()-1; i>=index; i--) {
+                this.data[i+1] = this.data[i];
+            }
+            this.data[index] = value;
+            size += 1; 
+        }
+    }
 
+    /**
+     * Adds element at end of list. 
+     * @param value the element to be added to the ListADT object
+     */
+    public void append(T value) { 
+        this.add(size, value);
     }
 
     /**
@@ -60,10 +83,7 @@ public class DynamicArray<T> {
      * @return true if empty, false if has elements
      */
     public boolean isEmpty() {
-        if (this.size() == 0) {
-            return true; 
-        }
-        return false; 
+        return this.size() == 0;
     }
 
     /**
@@ -89,7 +109,11 @@ public class DynamicArray<T> {
      * @return value at specified index
      */
     public T get(int index) {
-        return this.data[index];
+        if (index < 0 || index > this.size()) { 
+            throw new IndexOutOfBoundsException();
+        else { 
+            return this.data[index];
+        }
     }
 
     /**
@@ -98,7 +122,19 @@ public class DynamicArray<T> {
      * @throws IndexOutOfBoundsException if the index is less than 0 or greater than or equal to the size of the list
      * @return the element at the index specified
      */
-    T remove(int index);
+    public T remove(int index) {
+        if (index < 0 || index >= this.size()) { 
+            throw new IndexOutOfBoundsException();
+        } else {
+            T returnValue = this.data[index];
+            this.data[index] = null;
+            for (int i=index+1; i<size; i++) {
+                this.data[i-1] = this.data[i];
+            }
+            size -= 1; 
+            return returnValue;
+        }
+    }
 
     /**
      * Creates a new generic array of the given capacity.
