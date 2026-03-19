@@ -46,6 +46,8 @@ ___Y__ 1 pt: Adds that would make size > data.length trigger a resize
 
 ___Y__ 1 pt: Resize correctly allocates a new array and copies existing elements in the correct order
 
+UPDATED WITH GROUP 3 ITEMS
+
 ## Code Hygiene (4 pts):
 
 __Y__ 1 pt: No copy/paste near-duplicate code blocks for the same behavior (reusing your code is better for everyone!)
