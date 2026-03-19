@@ -163,10 +163,11 @@ public class DynamicArray<T> implements ListADT<T> {
     }
 
     /**
-     * Adds the elements of the given array to the index of this array, and returns a new DynamicArray containing the result.
+     * Adds the elements of the given array to the index of this array, 
+     *  returns a new DynamicArray containing the result.
      * @param index the index at which to insert the elements of addArray
      * @param addArray the array to be added to the end of this array
-     * @return a new DynamicArray containing the elements of this array with the elements of addArray inserted at the specified index
+     * @return a new DynamicArray with the elements of addArray inserted at the specified index
      */
     public DynamicArray<T> addAll(int index, DynamicArray<T> addArray) {
         if (index < 0 || index > this.size()) {
@@ -191,7 +192,7 @@ public class DynamicArray<T> implements ListADT<T> {
     }
 
     /**
-     * Checks if the given index is valid for accessing or modifying the list. If the index is out of bounds, an IndexOutOfBoundsException is thrown.
+     * Checks if the given index is valid for accessing or modifying the list.
      * @param index the index to check
      */
     private void checkIndex(int index) {
@@ -201,7 +202,8 @@ public class DynamicArray<T> implements ListADT<T> {
     }
 
     /**
-     * Removes elements from startIndex to endIndex (exclusive) and returns a new DynamicArray with the remaining elements.
+     * Removes elements from startIndex to endIndex (exclusive) 
+     * returns a new DynamicArray with the remaining elements.
      * @param fromIndex the index at which to start removing (inclusive)
      * @param toIndex the index at which to stop removing (exclusive)
      * @return a new DynamicArray containing elements outside the removed range
@@ -226,7 +228,7 @@ public class DynamicArray<T> implements ListADT<T> {
     }
 
     /**
-     * Returns a new DynamicArray containing the elements from one index up to just before another, [fromIndex, toIndex).
+     * Returns a new DynamicArray containing the elements from one index up to just before another.
      * @param fromIndex the starting index (inclusive)
      * @param toIndex the ending index (exclusive)
      * @return a new DynamicArray containing elements from fromIndex to toIndex
