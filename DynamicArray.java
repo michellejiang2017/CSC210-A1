@@ -6,7 +6,13 @@
  * @author Michelle Jiang
  */
 public class DynamicArray<T> implements ListADT<T> {
+    /**
+     * The underlying array that holds the elements of the DynamicArray.
+     */
     T[] data; 
+    /**
+     * The number of elements in the DynamicArray.
+     */
     int size; 
 
     /**
