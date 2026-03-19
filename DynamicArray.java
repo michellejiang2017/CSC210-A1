@@ -51,7 +51,8 @@ public class DynamicArray<T> implements ListADT<T> {
     }
 
     /**
-     * Adds element to existing list. Note: If the element type isn't the same as the list type, the code will not compile. 
+     * Adds element to existing list. 
+     * Note: If the element type isn't the same as the list type, the code will not compile. 
      * @param index of where the new element should be added
      * @param value the element to be added to the ListADT object
      * @throws IndexOutOfBoundsException if the index is less than 0 or greater than or equal to the size of the list
@@ -144,7 +145,8 @@ public class DynamicArray<T> implements ListADT<T> {
     }
 
     /**
-     * Appends the elements of the given array to the end of this array, and returns a new DynamicArray containing the result.
+     * Appends the elements of the given array to the end of this array,
+     * and returns a new DynamicArray containing the result.
      * @param addArray the array to be appended to this array
      * @return a new DynamicArray containing the elements of this array followed by the elements of addArray
      */
