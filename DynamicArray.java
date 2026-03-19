@@ -193,48 +193,48 @@ public class DynamicArray<T> implements ListADT<T> {
     }
 
     /**
-     * Deletes elements from startIndex to endIndex (exclusive) and returns a new DynamicArray with the remaining elements.
-     * @param startIndex the index at which to start deleting (inclusive)
-     * @param endIndex the index at which to stop deleting (exclusive)
-     * @return a new DynamicArray containing elements outside the deleted range
+     * Removes elements from startIndex to endIndex (exclusive) and returns a new DynamicArray with the remaining elements.
+     * @param fromIndex the index at which to start removing (inclusive)
+     * @param toIndex the index at which to stop removing (exclusive)
+     * @return a new DynamicArray containing elements outside the removed range
      * @throws IndexOutOfBoundsException if indices are invalid
      */
-    public DynamicArray<T> delete(int startIndex, int endIndex) {
-        if (startIndex < 0 || endIndex > this.size() || startIndex > endIndex) {
+    public DynamicArray<T> delete(int fromIndex, int toIndex) {
+        if (fromIndex < 0 || toIndex > this.size() || fromIndex > toIndex) {
             throw new IndexOutOfBoundsException();
         }
-        DynamicArray<T> newArray = new DynamicArray<T>(this.size() - (endIndex - startIndex));
+        DynamicArray<T> newArray = new DynamicArray<T>(this.size() - (toIndex - fromIndex));
         
-        for (int i = 0; i < startIndex; i++) {
+        for (int i = 0; i < fromIndex; i++) {
             newArray.data[i] = this.data[i];
         }
         
-        for (int i = endIndex; i < this.size(); i++) {
-            newArray.data[i - (endIndex - startIndex)] = this.data[i];
+        for (int i = toIndex; i < this.size(); i++) {
+            newArray.data[i - (toIndex - fromIndex)] = this.data[i];
         }
         
-        newArray.size = this.size() - (endIndex - startIndex);
+        newArray.size = this.size() - (toIndex - fromIndex);
         return newArray;
     }
 
     /**
-     * Extracts a subarray from startIndex to endIndex (exclusive) and returns it as a new DynamicArray.
-     * @param startIndex the starting index (inclusive)
-     * @param endIndex the ending index (exclusive)
-     * @return a new DynamicArray containing elements from startIndex to endIndex
-     * @throws IndexOutOfBoundsException if indices are invalid
+     * Returns a new DynamicArray containing the elements from one index up to just before another, [fromIndex, toIndex).
+     * @param fromIndex the starting index (inclusive)
+     * @param toIndex the ending index (exclusive)
+     * @return a new DynamicArray containing elements from fromIndex to toIndex
+     * @throws IndexOutOfBoundsException if indices are invalid or fromIndex > toIndex
      */
-    public DynamicArray<T> extract(int startIndex, int endIndex) {
-        if (startIndex < 0 || endIndex > this.size() || startIndex > endIndex) {
+    public DynamicArray<T> extract(int fromIndex, int toIndex) {
+        if (fromIndex < 0 || toIndex > this.size() || fromIndex > toIndex) {
             throw new IndexOutOfBoundsException();
         }
-        DynamicArray<T> newArray = new DynamicArray<T>(endIndex - startIndex);
+        DynamicArray<T> newArray = new DynamicArray<T>(toIndex - fromIndex);
         
-        for (int i = startIndex; i < endIndex; i++) {
-            newArray.data[i - startIndex] = this.data[i];
+        for (int i = fromIndex; i < toIndex; i++) {
+            newArray.data[i - fromIndex] = this.data[i];
         }
         
-        newArray.size = endIndex - startIndex;
+        newArray.size = toIndex - fromIndex;
         return newArray;
     }
 
