@@ -1,5 +1,6 @@
 /**
- * A Dynamic Array is like a list that is backed by an array. It allows adding, removing, and accessing elements in a way similar to an ArrayList.
+ * A Dynamic Array is like a list that is backed by an array. 
+ * It allows adding, removing, and accessing elements in a way similar to an ArrayList.
  *
  * @param <T> The generic class T can hold any object type such as Integer, String, etc. 
  * @author Michelle Jiang
@@ -8,14 +9,23 @@ public class DynamicArray<T> implements ListADT<T> {
     T[] data; 
     int size; 
 
+    /**
+     * Initializes a DynamicArray with the given initial capacity.
+     * @param capacity the initial capacity of the array
+     */
     public DynamicArray(int capacity) {
         this.data = this.makeArray(capacity); 
         this.size = 0; 
     }
 
+    /**
+     * Creates a copy of the given DynamicArray.
+     * This is a deep copy where all elements are copied into a new array.
+     * @param sourceArray the DynamicArray to copy
+     */
     public DynamicArray(DynamicArray<T> sourceArray) {
         this.data = this.makeArray(sourceArray.data.length);
-        for (int i=0; i<sourceArray.size; i++) {
+        for (int i = 0; i < sourceArray.size; i++) {
             this.data[i] = sourceArray.data[i];
         }
         this.size = sourceArray.size; 
@@ -45,14 +55,14 @@ public class DynamicArray<T> implements ListADT<T> {
             throw new IndexOutOfBoundsException();
         } else {
             if (size == this.data.length) {
-                T[] dataCopy = this.makeArray(size*2+1);
-                for (int i=0;i<size;i++) {
+                T[] dataCopy = this.makeArray(size * 2 + 1);
+                for (int i = 0; i < size; i++) {
                     dataCopy[i] = this.data[i];
                 }
                 data = dataCopy;
             }
-            for (int i=this.size()-1; i>=index; i--) {
-                this.data[i+1] = this.data[i];
+            for (int i = this.size() - 1; i >= index; i--) {
+                this.data[i + 1] = this.data[i];
             }
             this.data[index] = value;
             size += 1; 
@@ -64,7 +74,7 @@ public class DynamicArray<T> implements ListADT<T> {
      * @param value the element to be added to the ListADT object
      */
     public void add(T value) { 
-        this.add(size, value);
+        this.add(this.size(), value);
     }
 
     /**
@@ -91,7 +101,7 @@ public class DynamicArray<T> implements ListADT<T> {
         String returnString = "["; 
         for (int i=0; i<this.size(); i++) {
             returnString += String.valueOf(this.data[i]);
-            if (i<this.size-1) {
+            if (i < this.size() - 1) {
                 returnString += ", ";
             }
         }
@@ -120,8 +130,8 @@ public class DynamicArray<T> implements ListADT<T> {
         checkIndex(index);
         T returnValue = this.data[index];
         this.data[index] = null;
-        for (int i=index+1; i<size; i++) {
-            this.data[i-1] = this.data[i];
+        for (int i = index + 1; i < size; i++) {
+            this.data[i - 1] = this.data[i];
         }
         size -= 1; 
         return returnValue;
@@ -133,12 +143,12 @@ public class DynamicArray<T> implements ListADT<T> {
      * @return a new DynamicArray containing the elements of this array followed by the elements of addArray
      */
     public DynamicArray<T> append(DynamicArray<T> addArray) {
-        DynamicArray<T> newArray = new DynamicArray<T>(addArray.size+this.size());
-        for (int i=0;i<this.size();i++) {
+        DynamicArray<T> newArray = new DynamicArray<T>(addArray.size + this.size());
+        for (int i = 0; i < this.size(); i++) {
             newArray.data[i] = this.data[i];
         }
-        for (int i=0; i<addArray.size; i++) {
-            newArray.data[this.size()+i] = addArray.data[i];
+        for (int i = 0; i < addArray.size; i++) {
+            newArray.data[this.size() + i] = addArray.data[i];
         }
         newArray.size = this.size + addArray.size;
         return newArray;
@@ -151,21 +161,21 @@ public class DynamicArray<T> implements ListADT<T> {
      * @return a new DynamicArray containing the elements of this array with the elements of addArray inserted at the specified index
      */
     public DynamicArray<T> addAll(int index, DynamicArray<T> addArray) {
-        if (index < 0 || index > this.size) {
-        throw new IndexOutOfBoundsException();
+        if (index < 0 || index > this.size()) {
+            throw new IndexOutOfBoundsException();
         }
-        DynamicArray<T> newArray = new DynamicArray<T>(addArray.size+this.size());
+        DynamicArray<T> newArray = new DynamicArray<T>(addArray.size + this.size());
  
-        for (int i=0;i<index;i++) {
+        for (int i = 0; i < index; i++) {
             newArray.data[i] = this.data[i];
         }
     
-        for (int i=0; i<addArray.size; i++) {
-                newArray.data[i+index] = addArray.data[i];
-            }
+        for (int i = 0; i < addArray.size; i++) {
+            newArray.data[i + index] = addArray.data[i];
+        }
         
-        for (int i=index; i<this.size(); i++) {
-            newArray.data[i+addArray.size] = this.data[i];
+        for (int i = index; i < this.size(); i++) {
+            newArray.data[i + addArray.size] = this.data[i];
         }
 
         newArray.size = this.size + addArray.size;
@@ -181,6 +191,100 @@ public class DynamicArray<T> implements ListADT<T> {
             throw new IndexOutOfBoundsException();
         }
     }
+
+    /**
+     * Deletes elements from startIndex to endIndex (exclusive) and returns a new DynamicArray with the remaining elements.
+     * @param startIndex the index at which to start deleting (inclusive)
+     * @param endIndex the index at which to stop deleting (exclusive)
+     * @return a new DynamicArray containing elements outside the deleted range
+     * @throws IndexOutOfBoundsException if indices are invalid
+     */
+    public DynamicArray<T> delete(int startIndex, int endIndex) {
+        if (startIndex < 0 || endIndex > this.size() || startIndex > endIndex) {
+            throw new IndexOutOfBoundsException();
+        }
+        DynamicArray<T> newArray = new DynamicArray<T>(this.size() - (endIndex - startIndex));
+        
+        for (int i = 0; i < startIndex; i++) {
+            newArray.data[i] = this.data[i];
+        }
+        
+        for (int i = endIndex; i < this.size(); i++) {
+            newArray.data[i - (endIndex - startIndex)] = this.data[i];
+        }
+        
+        newArray.size = this.size() - (endIndex - startIndex);
+        return newArray;
+    }
+
+    /**
+     * Extracts a subarray from startIndex to endIndex (exclusive) and returns it as a new DynamicArray.
+     * @param startIndex the starting index (inclusive)
+     * @param endIndex the ending index (exclusive)
+     * @return a new DynamicArray containing elements from startIndex to endIndex
+     * @throws IndexOutOfBoundsException if indices are invalid
+     */
+    public DynamicArray<T> extract(int startIndex, int endIndex) {
+        if (startIndex < 0 || endIndex > this.size() || startIndex > endIndex) {
+            throw new IndexOutOfBoundsException();
+        }
+        DynamicArray<T> newArray = new DynamicArray<T>(endIndex - startIndex);
+        
+        for (int i = startIndex; i < endIndex; i++) {
+            newArray.data[i - startIndex] = this.data[i];
+        }
+        
+        newArray.size = endIndex - startIndex;
+        return newArray;
+    }
+
+    /**
+     * Returns the elements from the specified index and after as a new DynamicArray.
+     * @param index the starting index (inclusive)
+     * @return a new DynamicArray containing elements from index to the end
+     * @throws IndexOutOfBoundsException if index is invalid
+     */
+    public DynamicArray<T> splitSuffix(int index) {
+        if (index < 0 || index > this.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return this.extract(index, this.size());
+    }
+
+    /**
+     * Returns the elements before the specified index as a new DynamicArray.
+     * @param index the ending index (exclusive)
+     * @return a new DynamicArray containing elements from the beginning to before index
+     * @throws IndexOutOfBoundsException if index is invalid
+     */
+    public DynamicArray<T> splitPrefix(int index) {
+        if (index < 0 || index > this.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return this.extract(0, index);
+    }
+
+      /**
+     * Returns a subarray from startIndex to endIndex (exclusive) as a new DynamicArray.
+     * @param startIndex the starting index (inclusive)
+     * @param endIndex the ending index (exclusive)
+     * @return a new DynamicArray containing elements from startIndex to endIndex
+     * @throws IndexOutOfBoundsException if indices are invalid
+     */
+    public DynamicArray<T> sublist(int startIndex, int endIndex) {
+        if (startIndex < 0 || endIndex > this.size() || startIndex > endIndex) {
+            throw new IndexOutOfBoundsException();
+        }
+        DynamicArray<T> newArray = new DynamicArray<T>(endIndex - startIndex);
+        
+        for (int i = startIndex; i < endIndex; i++) {
+            newArray.data[i - startIndex] = this.data[i];
+        }
+        
+        newArray.size = endIndex - startIndex;
+        return newArray;
+    }
+
 
     /**
      * Creates a new generic array of the given capacity.
